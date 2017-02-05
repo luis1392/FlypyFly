@@ -127,6 +127,14 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         tubo2.zPosition = 0
         
         
+        tubo1.physicsBody = SKPhysicsBody( rectangleOf: texturaTubo1.size() ) //Creamos cuerpo fisico al tubo
+        tubo1.physicsBody!.isDynamic = false
+        
+        tubo2.physicsBody = SKPhysicsBody( rectangleOf: texturaTubo1.size() ) //Creamos cuerpo fisico al tubo
+        tubo2.physicsBody!.isDynamic = false
+        
+        
+        
         tubo1.run(moverAndRemoverTubos)
         tubo2.run(moverAndRemoverTubos)
         
@@ -152,6 +160,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         mosca.position = CGPoint(x:self.frame.midX ,y:self.frame.midY)
         
+        //Crear cuerpo fisico a la mosca
+        mosca.physicsBody = SKPhysicsBody(circleOfRadius: texturaMosca1.size().height/2)
+        mosca.physicsBody?.isDynamic = false  //No es afecta por la gravedad
         
         mosca.run(animacionInfinita)
         mosca.zPosition = 1
@@ -163,10 +174,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         
-        mosca.physicsBody = SKPhysicsBody(circleOfRadius: texturaMosca1.size().height/2)
-        mosca.physicsBody!.isDynamic = true
+        
+        mosca.physicsBody!.isDynamic = true // Al tocar la pantalla es afectada por la gravedad
         mosca.physicsBody!.velocity = ( CGVector(dx:0, dy:0)  )
-        mosca.physicsBody!.applyImpulse( CGVector(dx:0, dy:100) )
+        mosca.physicsBody!.applyImpulse( CGVector(dx:0, dy:100) ) // inpulso generado al tocar la pantalla
     }
     
     func didBegin(_ contact: SKPhysicsContact) {
