@@ -47,7 +47,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         self.physicsWorld.contactDelegate = self
         
         //TIMER  TUBOS 
-        _ = Timer.scheduledTimer(timeInterval: 4, target: self, selector: #selector(self.crearTubos), userInfo: nil, repeats: true)
+        _ = Timer.scheduledTimer(timeInterval: 4, target: self, selector: #selector(self.crearTubosAndEspacios), userInfo: nil, repeats: true)
+        
+        //TIMER ESPACIO ENTRE TUBOS
         
         
         //MOSCA
@@ -59,12 +61,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         //SUELO
         crearSuelo()
         
-        //TUBOS
-        crearTubos()
-        
-        //ESPACIO ENTRE TUBOS
-        
-        agregarEspacios()
+        //TUBOS Y ESPACIO ENTRE TUBOS
+        crearTubosAndEspacios()
+
         
 
     }
@@ -114,11 +113,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         //con que objetos podra colisionar
         suelo.physicsBody!.collisionBitMask = tipoNodo.mosca.rawValue
         
+        suelo.physicsBody!.contactTestBitMask = tipoNodo.mosca.rawValue
+        
         self.addChild(suelo)
     }
     
     
-    func crearTubos() {
+    func crearTubosAndEspacios () {
         
         let moverTubos =  SKAction.move(by: CGVector(dx:-3 * self.frame.width, dy: 0 ), duration: TimeInterval(self.frame.width / 100 ) )
         
@@ -161,6 +162,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         tubo1.physicsBody!.collisionBitMask = tipoNodo.mosca.rawValue
         tubo2.physicsBody!.collisionBitMask = tipoNodo.mosca.rawValue
         
+        tubo1.physicsBody!.contactTestBitMask = tipoNodo.mosca.rawValue
+        tubo2.physicsBody!.contactTestBitMask = tipoNodo.mosca.rawValue
+        
         tubo1.run(moverAndRemoverTubos)
         tubo2.run(moverAndRemoverTubos)
         
@@ -168,28 +172,15 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         self.addChild(tubo2)
         
         
+        // Espacios
         
         
-    }
-    
-    func agregarEspacios(){
-        
-        let texturaTubo1 = SKTexture(imageNamed: "Tubo1.png")
-        let moverEspacioTubos =  SKAction.move(by: CGVector(dx:-3 * self.frame.width, dy: 0 ), duration: TimeInterval(self.frame.width / 100 ) )
-        
-        let removerEspacioTubos = SKAction.removeFromParent()
-        let moverAndRemoverEspacio = SKAction.sequence( [moverEspacioTubos,removerEspacioTubos] )
-        
-        
-        let cantidadMovimientoAleatorio = CGFloat( arc4random() %  UInt32(self.frame.height/2) )
-        
-        let compensacionTubos = cantidadMovimientoAleatorio - self.frame.height/4
         let espacio = SKSpriteNode()
+        espacio.position = CGPoint(x:self.frame.midX + self.frame.width , y:self.frame.midY + compensacionTubos)
         
-        espacio.position = CGPoint(x:self.frame.midX + self.frame.width , y: self.frame.midY + compensacionTubos)
+        espacio.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width:texturaTubo1.size().width , height: mosca.size.height * 3))
         
-        espacio.physicsBody = SKPhysicsBody( rectangleOf: CGSize( width:texturaTubo1.size().width, height:mosca.size.height * 3 ) )
-        espacio.physicsBody!.isDynamic = false //cuerpo fisico no sea afectado por la grabedad
+        espacio.physicsBody!.isDynamic = false //El cuerpo fisico no sea afectado por la grabedad
         espacio.zPosition = 1
         
         //define el tipo de objetos que el cuerpo fisico del nodo tendrá
@@ -198,13 +189,20 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         //El espacio no puede colicionar con otro nodo
         espacio.physicsBody!.collisionBitMask = 0
         
+        espacio.physicsBody!.contactTestBitMask = tipoNodo.mosca.rawValue
         
-        espacio.run(moverAndRemoverEspacio) //Ejecutar Accion
+        
+        espacio.run(moverAndRemoverTubos) //Ejecutar Accion
+        
+        
         self.addChild(espacio)  //Agregar al nodo padre
         
         
-    
+        
+        
     }
+    
+    
     
     
     func crearMosca() {
@@ -231,6 +229,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         //con que objetos podra colisionar
         mosca.physicsBody!.collisionBitMask = tipoNodo.tuboSuelo.rawValue
         
+        //notificar colicion ya sea con un tubo o el suelo
+        mosca.physicsBody!.contactTestBitMask = tipoNodo.tuboSuelo.rawValue | tipoNodo.espacioTubos.rawValue
+        
         mosca.run(animacionInfinita)
         mosca.zPosition = 1
         self.addChild(mosca)
@@ -248,7 +249,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     func didBegin(_ contact: SKPhysicsContact) {
-    
+     print("contacto")
     }
     
     
