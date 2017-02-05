@@ -15,8 +15,16 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var fondo = SKSpriteNode()
     var tubo1 = SKSpriteNode()
     var tubo2 = SKSpriteNode()
+    //var boton = SKSpriteNode()
     var texturaMosca1 = SKTexture()
     var  texturaFondo = SKTexture()
+    var labelPuntuacion = SKLabelNode()
+    var puntuacion = 0
+    var timer = Timer()
+    var gameOver = false
+    var boton = UIButton()
+    
+    
     
     
     /*
@@ -46,29 +54,23 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         // Delegado para detectar coliciones
         self.physicsWorld.contactDelegate = self
         
-        //TIMER  TUBOS 
-        _ = Timer.scheduledTimer(timeInterval: 4, target: self, selector: #selector(self.crearTubosAndEspacios), userInfo: nil, repeats: true)
-        
-        //TIMER ESPACIO ENTRE TUBOS
-        
-        
-        //MOSCA
-        crearMosca()
-        
-        //FONDO ANIMADO
-        crearFondoAnimado()
-        
-        //SUELO
-        crearSuelo()
-        
-        //TUBOS Y ESPACIO ENTRE TUBOS
-        crearTubosAndEspacios()
-
-        
+       reiniciar()
 
     }
     
+    func crearLabelPuntuacion(){
     
+        labelPuntuacion.fontName = "Arial"
+        
+        labelPuntuacion.fontSize = 80
+        
+        labelPuntuacion.text = "0"
+        labelPuntuacion.position = CGPoint(x:self.frame.midX, y: self.frame.midY + 500)
+        labelPuntuacion.zPosition = 2
+        
+        self.addChild(labelPuntuacion)
+    
+    }
     
     
     func crearFondoAnimado(){
@@ -243,13 +245,86 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         
         
-        mosca.physicsBody!.isDynamic = true // Al tocar la pantalla es afectada por la gravedad
-        mosca.physicsBody!.velocity = ( CGVector(dx:0, dy:0)  )
-        mosca.physicsBody!.applyImpulse( CGVector(dx:0, dy:100) ) // inpulso generado al tocar la pantalla
+        if gameOver == false  {
+            mosca.physicsBody!.isDynamic = true // Al tocar la pantalla es afectada por la gravedad
+            mosca.physicsBody!.velocity = ( CGVector(dx:0, dy:0)  )
+            mosca.physicsBody!.applyImpulse( CGVector(dx:0, dy:100) ) // inpulso generado al tocar la pantalla
+        }
+        else{
+            /*boton.color = SKColor.yellow
+            boton.position = CGPoint(x:self.frame.midX  , y:self.frame.midY)
+            boton.size = CGSize(width:60, height: 40)
+            boton.isUserInteractionEnabled = true
+            boton.canPerformAction(<#T##action: Selector##Selector#>, withSender: <#T##Any?#>)
+            
+            
+            self.addChild(boton) */
+
+            
+        }
+   
+        
+        
+    }
+    
+    func getInicio()  {
+        boton.isHidden = true
+        gameOver = false
+        puntuacion = 0
+        self.speed = 1
+        self.removeAllChildren()
+        reiniciar()
+    }
+    
+    func reiniciar() {
+    
+        
+        //TIMER  TUBOS
+        timer = Timer.scheduledTimer(timeInterval: 4, target: self, selector: #selector(self.crearTubosAndEspacios), userInfo: nil, repeats: true)
+        
+        //LABEL PUNTUACION
+        crearLabelPuntuacion()
+        
+        
+        //MOSCA
+        crearMosca()
+        
+        //FONDO ANIMADO
+        crearFondoAnimado()
+        
+        //SUELO
+        crearSuelo()
+        
+        //TUBOS Y ESPACIO ENTRE TUBOS
+        crearTubosAndEspacios()
+        
     }
     
     func didBegin(_ contact: SKPhysicsContact) {
-     print("contacto")
+        let cuerpoA = contact.bodyA
+        let cuerpoB = contact.bodyB
+        
+        if (cuerpoA.categoryBitMask == tipoNodo.mosca.rawValue && cuerpoB.categoryBitMask == tipoNodo.espacioTubos.rawValue) || (cuerpoA.categoryBitMask == tipoNodo.espacioTubos.rawValue && cuerpoB.categoryBitMask == tipoNodo.mosca.rawValue) {
+            
+            puntuacion += 1
+            labelPuntuacion.text = String(puntuacion)
+        }
+        else{
+            boton.frame = CGRect(x:self.frame.midX, y:50, width:200, height: 40)
+            boton.setTitle("Reiniciar", for: UIControlState.normal)
+            boton.setTitleColor(UIColor.black, for: .normal)
+            boton.backgroundColor = UIColor.yellow
+            boton.addTarget(self, action: #selector(self.getInicio), for: .touchDown)
+            self.view!.addSubview(boton)
+            boton.isHidden = false
+            
+            gameOver = true
+            self.speed = 0
+            timer.invalidate()
+            labelPuntuacion.text = String("GAME OVER")
+            
+        }
+        
     }
     
     
