@@ -17,6 +17,11 @@
 		A051E5771E44049C00D8C1EB /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A051E5751E44049C00D8C1EB /* LaunchScreen.storyboard */; };
 		A051E5821E44049C00D8C1EB /* FlypyFlyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A051E5811E44049C00D8C1EB /* FlypyFlyTests.swift */; };
 		A051E58D1E44049C00D8C1EB /* FlypyFlyUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A051E58C1E44049C00D8C1EB /* FlypyFlyUITests.swift */; };
+		A051E59F1E4404B900D8C1EB /* fly1.png in Resources */ = {isa = PBXBuildFile; fileRef = A051E59A1E4404B900D8C1EB /* fly1.png */; };
+		A051E5A01E4404B900D8C1EB /* fly2.png in Resources */ = {isa = PBXBuildFile; fileRef = A051E59B1E4404B900D8C1EB /* fly2.png */; };
+		A051E5A11E4404B900D8C1EB /* fondo.png in Resources */ = {isa = PBXBuildFile; fileRef = A051E59C1E4404B900D8C1EB /* fondo.png */; };
+		A051E5A21E4404B900D8C1EB /* Tubo1.png in Resources */ = {isa = PBXBuildFile; fileRef = A051E59D1E4404B900D8C1EB /* Tubo1.png */; };
+		A051E5A31E4404B900D8C1EB /* Tubo2.png in Resources */ = {isa = PBXBuildFile; fileRef = A051E59E1E4404B900D8C1EB /* Tubo2.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,6 +58,11 @@
 		A051E5881E44049C00D8C1EB /* FlypyFlyUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FlypyFlyUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		A051E58C1E44049C00D8C1EB /* FlypyFlyUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlypyFlyUITests.swift; sourceTree = "<group>"; };
 		A051E58E1E44049C00D8C1EB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		A051E59A1E4404B900D8C1EB /* fly1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = fly1.png; sourceTree = "<group>"; };
+		A051E59B1E4404B900D8C1EB /* fly2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = fly2.png; sourceTree = "<group>"; };
+		A051E59C1E4404B900D8C1EB /* fondo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = fondo.png; sourceTree = "<group>"; };
+		A051E59D1E4404B900D8C1EB /* Tubo1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Tubo1.png; sourceTree = "<group>"; };
+		A051E59E1E4404B900D8C1EB /* Tubo2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Tubo2.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -109,6 +119,11 @@
 				A051E56C1E44049B00D8C1EB /* GameScene.swift */,
 				A051E56E1E44049B00D8C1EB /* GameViewController.swift */,
 				A051E5701E44049B00D8C1EB /* Main.storyboard */,
+				A051E59A1E4404B900D8C1EB /* fly1.png */,
+				A051E59B1E4404B900D8C1EB /* fly2.png */,
+				A051E59C1E4404B900D8C1EB /* fondo.png */,
+				A051E59D1E4404B900D8C1EB /* Tubo1.png */,
+				A051E59E1E4404B900D8C1EB /* Tubo2.png */,
 				A051E5731E44049C00D8C1EB /* Assets.xcassets */,
 				A051E5751E44049C00D8C1EB /* LaunchScreen.storyboard */,
 				A051E5781E44049C00D8C1EB /* Info.plist */,
@@ -202,6 +217,7 @@
 				TargetAttributes = {
 					A051E5621E44049B00D8C1EB = {
 						CreatedOnToolsVersion = 8.2.1;
+						DevelopmentTeam = 5DN9322W6K;
 						ProvisioningStyle = Automatic;
 					};
 					A051E57C1E44049C00D8C1EB = {
@@ -243,9 +259,14 @@
 			files = (
 				A051E5721E44049B00D8C1EB /* Main.storyboard in Resources */,
 				A051E5691E44049B00D8C1EB /* GameScene.sks in Resources */,
+				A051E5A11E4404B900D8C1EB /* fondo.png in Resources */,
 				A051E5741E44049C00D8C1EB /* Assets.xcassets in Resources */,
 				A051E5771E44049C00D8C1EB /* LaunchScreen.storyboard in Resources */,
 				A051E56B1E44049B00D8C1EB /* Actions.sks in Resources */,
+				A051E5A21E4404B900D8C1EB /* Tubo1.png in Resources */,
+				A051E5A01E4404B900D8C1EB /* fly2.png in Resources */,
+				A051E5A31E4404B900D8C1EB /* Tubo2.png in Resources */,
+				A051E59F1E4404B900D8C1EB /* fly1.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -422,6 +443,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = 5DN9322W6K;
 				INFOPLIST_FILE = FlypyFly/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.luis.enrique.FlypyFly;
@@ -434,6 +456,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = 5DN9322W6K;
 				INFOPLIST_FILE = FlypyFly/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.luis.enrique.FlypyFly;
